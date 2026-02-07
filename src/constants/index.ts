@@ -1,1 +1,10 @@
-export { colors, spacing, borderRadius, typography, shadows } from "./theme";
+export {
+  colors,
+  lightColors,
+  darkColors,
+  useThemeColors,
+  spacing,
+  borderRadius,
+  typography,
+  shadows,
+} from "./theme";

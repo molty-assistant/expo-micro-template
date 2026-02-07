@@ -2,8 +2,28 @@
  * Design tokens — single source of truth for the app's visual language.
  * Adjust these values per-app; all screens/components reference them.
  */
+import { useColorScheme } from "react-native";
 
-export const colors = {
+export interface ColorTokens {
+  primary: string;
+  primaryLight: string;
+  primaryDark: string;
+  background: string;
+  surface: string;
+  card: string;
+  text: string;
+  textSecondary: string;
+  textInverted: string;
+  border: string;
+  separator: string;
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+  overlay: string;
+}
+
+const lightColors: ColorTokens = {
   // Core
   primary: "#007AFF",
   primaryLight: "#4DA3FF",
@@ -31,7 +51,52 @@ export const colors = {
 
   // Overlays
   overlay: "rgba(0, 0, 0, 0.4)",
-} as const;
+};
+
+const darkColors: ColorTokens = {
+  // Core
+  primary: "#0A84FF",
+  primaryLight: "#4DA3FF",
+  primaryDark: "#0055CC",
+
+  // Backgrounds
+  background: "#000000",
+  surface: "#1C1C1E",
+  card: "#1C1C1E",
+
+  // Text
+  text: "#FFFFFF",
+  textSecondary: "#8E8E93",
+  textInverted: "#000000",
+
+  // Borders & dividers
+  border: "#38383A",
+  separator: "#38383A",
+
+  // Semantic
+  success: "#30D158",
+  warning: "#FF9F0A",
+  error: "#FF453A",
+  info: "#64D2FF",
+
+  // Overlays
+  overlay: "rgba(0, 0, 0, 0.6)",
+};
+
+/**
+ * Hook: returns the correct color set for the current system theme.
+ * Use in components: `const colors = useThemeColors();`
+ */
+export function useThemeColors() {
+  const scheme = useColorScheme();
+  return scheme === "dark" ? darkColors : lightColors;
+}
+
+/** Default (light) export for static contexts (StyleSheet.create). */
+export const colors = lightColors;
+
+/** Direct access when needed. */
+export { lightColors, darkColors };
 
 export const spacing = {
   xs: 4,
